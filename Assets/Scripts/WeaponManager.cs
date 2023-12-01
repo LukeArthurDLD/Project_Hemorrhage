@@ -1,6 +1,15 @@
 using UnityEngine;
 using System;
 
+[System.Serializable]
+public class Ammo
+{
+    public enum AmmoType { Light, Shells, Heavy }
+    public AmmoType Type;
+    public int currentAmmo;
+    public int maxAmmo;
+}
+
 public class WeaponManager : MonoBehaviour
 {
     Transform[] weapons;
@@ -12,10 +21,11 @@ public class WeaponManager : MonoBehaviour
     public Transform Unarmed;
     public Transform closestWeapon = null;
 
+    [Header("Ammo")]
+    public Ammo[] ammoTypes;
+
     [Header("UI")]
     public SliderBar ammoBar;
-    public SliderBar reserveBar;
-    public SliderBar batteryBar;
 
     void Start()
     {
@@ -163,53 +173,19 @@ public class WeaponManager : MonoBehaviour
     {
         Weapon weaponUI = weapons[currentWeapon].GetComponent<Weapon>();
 
-        if (weaponUI.magType == Weapon.MagazineType.Battery) // battery
+        if (ammoBar)
         {
-            if(batteryBar)
-            {
-                batteryBar.gameObject.SetActive(true);
-                batteryBar.SetMaxValue((int)Math.Round(weaponUI.maxHeat));
-                batteryBar.SetValue((int)Math.Round(weaponUI.currentHeat));               
-            }
-            if (ammoBar)
-                ammoBar.gameObject.SetActive(false);
-        }
-        else 
-        {
-            if (ammoBar)
-            {
-                ammoBar.gameObject.SetActive(true);
-                ammoBar.SetMaxValue(weaponUI.maxMagAmmo);
-                ammoBar.SetValue(weaponUI.currentMagAmmo);
-            }
-            if (batteryBar)
-                batteryBar.gameObject.SetActive(false);
-        }
-            
-        if (reserveBar) // set reserve ammo
-        {
-            reserveBar.SetMaxValue(weaponUI.maxReserveAmmo);
-            reserveBar.SetValue(weaponUI.currentReserveAmmo);
+            ammoBar.gameObject.SetActive(true);
+            ammoBar.SetMaxValue(weaponUI.maxMagAmmo);
+            ammoBar.SetValue(weaponUI.currentMagAmmo);
         }
     }
     public void UpdateUI()
     {
         Weapon weaponUI = weapons[currentWeapon].GetComponent<Weapon>();
 
-        if (weaponUI.magType == Weapon.MagazineType.Battery) // battery
-        {
-            if (batteryBar && currentWeapon < weapons.Length) // set heat
-                batteryBar.SetValue((int)Math.Round(weaponUI.currentHeat));           
-        }
-        else // magazine weapon
-        {
-            if (ammoBar && currentWeapon < weapons.Length) // set current ammo
-                ammoBar.SetValue(weaponUI.currentMagAmmo);
-        }
-
-        if (reserveBar && currentWeapon < weapons.Length) // set reserve ammo
-            reserveBar.SetValue(weaponUI.currentReserveAmmo);
-    
+        if (ammoBar && currentWeapon < weapons.Length) // set current ammo
+            ammoBar.SetValue(weaponUI.currentMagAmmo);
     }
 }
 

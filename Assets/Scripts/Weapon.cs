@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
     public string weaponName = "Default";
     public string weaponDescription = "Default";
 
-
     public Bullet[] bullet;
     int bulletIndex = 0;
     [System.NonSerialized]
@@ -17,6 +16,7 @@ public class Weapon : MonoBehaviour
     [Header("Firerate")]
     public float fireRate = 2.5f; //bullets per second
     private float nextFire = 0f;
+
     [Header("Accuracy")]
     public float spreadPerShot = 1.0f;
     public float minimumSpread = 0f;
@@ -34,21 +34,7 @@ public class Weapon : MonoBehaviour
     public float maxChargeTime = 0f;
     private float timeCharged = 0f;
 
-    public enum MagazineType { Clip, Battery, Tube};
-    [Header("Ammo")]
-    public MagazineType magType;
-    public int currentMagAmmo = 10;
-    public int maxMagAmmo = 10;
-    public int currentReserveAmmo = 100;
-    public int maxReserveAmmo = 100; 
-    public float reloadSpeed = 2.5f;
-
-    [Header("Battery")]
-    [System.NonSerialized]
-    public float currentHeat = 0, maxHeat = 100f;
-    public float heatPerShot = 5f;
-    private float coolRate = 25f;
-
+    [Header("State")]
     public enum WeaponState { Neutral, Reloading, Firing, Melee, Dropped };
     public WeaponState weaponState = WeaponState.Neutral;
 
@@ -134,9 +120,7 @@ public class Weapon : MonoBehaviour
                 {
                     if (timeCharged >= minChargeTime) // if charged
                     {
-                        OnFire();
-                        if (magType == MagazineType.Battery)
-                            OverheatWeapon();
+                        OnFire();                        
                     }
                     else if (bullet.Length > 1)
                     {
@@ -146,14 +130,6 @@ public class Weapon : MonoBehaviour
                     }
                     timeCharged = 0;
                 }
-            }
-
-            if (Input.GetButton("Reload")) // Reload Input
-            {
-                if (magType != MagazineType.Battery && currentMagAmmo != maxMagAmmo && currentReserveAmmo != 0) // reload weapon
-                    StartReload();
-                else if (magType == MagazineType.Battery && currentHeat >= (maxHeat / 10)) // cool weapon
-                    StartCooling();
             }
         } 
     }
@@ -165,20 +141,10 @@ public class Weapon : MonoBehaviour
             nextFire = Time.time + 1f / fireRate; //manage firerate
 
             if (firingMode == FiringMode.Burst) //handles burst
-                bulletsShot = bulletsPerBurst;
-
-            if(magType == MagazineType.Battery) //for battery weapons
-            {
-                if (currentReserveAmmo > 0)
-                    Shoot();                
-            }
-            else //for other weapons
-            {
-                if (currentMagAmmo > 0)
-                    Shoot();
-                else if (currentReserveAmmo != 0)
-                    StartReload();
-            }            
+                bulletsShot = bulletsPerBurst;       
+            
+            //add ammo check with new ammo system
+            Shoot();
         }
     }
     void Shoot()
