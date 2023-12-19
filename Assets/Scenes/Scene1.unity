@@ -645,10 +645,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1337862803270674052, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 16839104dc1af6e48b183df02adefc0e, type: 2}
     - target: {fileID: 1337862803612594297, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
       propertyPath: m_Name
       value: PlayerController
@@ -693,17 +689,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1337862803612595077, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1337862803612594297, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1933582101}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
 --- !u!1 &1722343080
 GameObject:
@@ -848,38 +837,6 @@ Transform:
   - {fileID: 607273655}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1933582095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1337862803612594297, guid: 89b9c4e4c8defe747b2273d98770e4cc, type: 3}
-  m_PrefabInstance: {fileID: 1200781214}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1933582101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933582095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c32adbb9bd01b6439db8f83844563d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickUpRange: 2
-  Unarmed: {fileID: 0}
-  closestWeapon: {fileID: 0}
-  light:
-    currentAmmo: 0
-    maxAmmo: 0
-  shells:
-    currentAmmo: 0
-    maxAmmo: 0
-  heavy:
-    currentAmmo: 0
-    maxAmmo: 0
-  ammoBar: {fileID: 0}
-  reserveBar: {fileID: 0}
-  batteryBar: {fileID: 0}
 --- !u!1 &1986155007
 GameObject:
   m_ObjectHideFlags: 0
